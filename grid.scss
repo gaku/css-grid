@@ -8,10 +8,10 @@ $single_col: (100% - ($num_columns - 1) * $gutter)  / $num_columns;
 .row:after {
     clear:both;
     content:".";
-    height: 0;
     width: 0;
+    display:block;
+    height: 0;
     visibility: hidden;
-    display: block;
 }
 
 /* a @mixin output the content to where @include is used */
@@ -19,11 +19,31 @@ $single_col: (100% - ($num_columns - 1) * $gutter)  / $num_columns;
   width: $single_col * $n + $gutter * ($n - 1);
 }
 
+@function col_width_fn($n) {
+  @return $single_col * $n + $gutter * ($n - 1);
+}
+
+@mixin sub_col_width_fn($parent, $n) {
+  $parent_width: col_width_fn($parent);
+  margin-left: $gutter / $parent_width * 100%;
+  width: col_width_fn($n) / $parent_width * 100%;
+}
+
 @for $i from 1 through $num_columns {
   .col#{$i} {
     float: left;
     margin-left: $gutter;
-    @include col_width($i);
+    width: col_width_fn($i);
+
+    @for $j from 1 through $i {
+      .row .col#{$j} {
+        background-color: yellow;
+        @include sub_col_width_fn($i, $j);
+      }
+      .row .col#{$j}:first-child {
+        margin-left: 0;
+      }
+    }
   }
   .col#{$i}:first-child {
     margin-left: 0;
