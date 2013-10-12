@@ -1,0 +1,9 @@
+{
+  "name": "css-grid",
+  "version": "0.0.1",
+  "description": "Responsive 12-column grid layout CSS",
+  "private": true,
+  "license": "apache",
+  "dependencies": {
+  }
+}
