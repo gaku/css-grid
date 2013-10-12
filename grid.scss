@@ -1,0 +1,31 @@
+$num_columns: 12;
+$gutter: 1.5%;
+$single_col: (100% - ($num_columns - 1) * $gutter)  / $num_columns;
+
+.row {
+    width: 100%;
+}
+.row:after {
+    clear:both;
+    content:".";
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    display: block;
+}
+
+/* a @mixin output the content to where @include is used */
+@mixin col_width($n) {
+  width: $single_col * $n + $gutter * ($n - 1);
+}
+
+@for $i from 1 through $num_columns {
+  .col#{$i} {
+    float: left;
+    margin-left: $gutter;
+    @include col_width($i);
+  }
+  .col#{$i}:first-child {
+    margin-left: 0;
+  }
+}
