@@ -1,0 +1,13 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200;
+
+}
+.col-1, .col-2 {
+    background-color: orange;
+    text-align: center;
+}
+.row {
+    background-color: greenyellow;
+    margin-bottom: 5px;
+}
